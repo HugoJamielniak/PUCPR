@@ -1,0 +1,159 @@
+<?php
+session_start();
+
+$dbHost = 'localhost:3306';
+$dbUsername = 'root';
+$dbSenha = 'HUGO@1234';
+$dbName = 'banco_site';
+
+$conn = new mysqli($dbHost, $dbUsername, $dbSenha, $dbName);
+
+if ($conn->connect_error) {
+    die("Erro de conexão: " . $conn->connect_error);
+}
+
+
+// 🔹 Verifica se é uma requisição AJAX (para atualizar ou buscar dados)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['acao'])) {
+    header("Content-Type: application/json");
+
+    if (!isset($_SESSION['id'])) {
+        echo json_encode(["erro" => "Usuário não logado"]);
+        exit;
+    }
+
+    $id = $_SESSION['id'];
+
+    // 🟢 Atualizar dados
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $nome = $data['nome'];
+        $endereco = $data['endereco'];
+        $email = $data['email'];
+        $telefone = $data['telefone'];
+
+        $sql = "UPDATE cliente SET nome=?, endereco=?, email=?, telefone=? WHERE id=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssi", $nome, $endereco, $email, $telefone, $id);
+
+        if ($stmt->execute()) {
+            echo json_encode(["sucesso" => "Dados atualizados com sucesso!"]);
+        } else {
+            echo json_encode(["erro" => "Erro ao atualizar dados."]);
+        }
+        exit;
+    }
+
+    // 🟣 Buscar dados
+    if (isset($_GET['acao']) && $_GET['acao'] === 'buscar') {
+        $sql = "SELECT nome, endereco, email, telefone FROM cliente WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        echo json_encode($result->fetch_assoc());
+        exit;
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="infoPessoal.css">
+    <title>Informações Pessoais</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <a href="inicio.php">Início</a>
+            <a href="#cars">Modelos</a>
+            <a href="#modificar">Personalização</a>
+            <img src="logo-smt.png" width="100px" height="100px">
+            <a href="">Pedidos</a>
+            <a href="suporte.php">Suporte</a>
+            <div class="user">
+                <div class="circle">
+                    <img src="piloto.jpg" width="32px" height="32px">
+                </div>
+                <p>Olá, <?php echo ($_SESSION['nome']); ?></p>
+            </div>
+        </nav>
+
+        <div class="geral">
+            <div class="direita">
+                <h1>Informações da Conta</h1>
+                <p>Aqui você pode editar suas informações pessoais</p>
+                <br>
+
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome">
+
+                <label for="endereco">Endereço</label>
+                <input type="text" id="endereco" name="endereco">
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+
+                <label for="telefone">Telefone</label>
+                <input type="tel" id="telefone" name="telefone">
+
+                <br><br>
+                <button type="submit" class="btn-submit">Alterar</button>
+            </div>
+
+            <div class="esquerda">
+                <a href="infoPessoal.php">Informações pessoais</a>
+                <a href="#meus_pedidos">Meus Pedidos</a>
+                <a href="#historico_compra">Histórico de compras</a>
+                <p class="descer"></p>
+                <a href="suporte.php">Suporte</a>
+                <div class="linha-vertical"></div>
+            </div>
+        </div>
+    </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // 🟣 Buscar dados do usuário
+  fetch("infoPessoal.php?acao=buscar")
+    .then(response => response.json())
+    .then(data => {
+      if (data) {
+        document.getElementById("nome").value = data.nome || "";
+        document.getElementById("endereco").value = data.endereco || "";
+        document.getElementById("email").value = data.email || "";
+        document.getElementById("telefone").value = data.telefone || "";
+      }
+    });
+
+  // 🟢 Atualizar dados
+  document.querySelector(".btn-submit").addEventListener("click", () => {
+    const dados = {
+      nome: document.getElementById("nome").value,
+      endereco: document.getElementById("endereco").value,
+      email: document.getElementById("email").value,
+      telefone: document.getElementById("telefone").value
+    };
+
+    fetch("infoPessoal.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dados)
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.sucesso) {
+          alert(data.sucesso);
+        } else {
+          alert(data.erro);
+        }
+      });
+  });
+});
+</script>
+</body>
+</html>
