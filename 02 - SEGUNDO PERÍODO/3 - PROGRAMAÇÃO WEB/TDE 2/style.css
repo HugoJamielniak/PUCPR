@@ -1,0 +1,120 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+.cabecalho {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+}
+
+.titulo {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.subtitulo {
+    font-size: 1rem;
+    color: #bbb;
+    margin-top: 0.5rem;
+}
+
+
+.conteudo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    backdrop-filter: blur(6px);
+}
+
+.card h2 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+
+#prompt-input {
+    width: 100%;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1rem;
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    resize: none;
+    outline: none;
+}
+
+.botao {
+    display: block;
+    width: 100%;
+    background: #007bff;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 0.9rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.botao:hover {
+    background: #0056b3;
+}
+
+.botao:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+#resposta-container {
+    margin-top: 2rem;
+}
+
+#resposta-ollama {
+    background-color: #111;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1rem;
+    color: #b0b0b0;
+    min-height: 100px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.rodape {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 0.9rem;
+    color: #aaa;
+}

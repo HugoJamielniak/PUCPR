@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integração Ollama</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="cabecalho">
+        <h1 class="titulo">💬 Integração Ollama</h1>
+        <p class="subtitulo">Exemplo de integração com modelo <strong>llama3</strong> via backend Python</p>
+    </header>
+
+    <main class="conteudo">
+        <section class="card">
+            <h2>Envie seu prompt</h2>
+            <textarea id="prompt-input" rows="4" placeholder="Digite seu prompt aqui..."></textarea>
+
+            <button id="enviar-btn" class="botao">Enviar para o Ollama</button>
+
+            <div id="resposta-container">
+                <h3>Resposta do Ollama:</h3>
+                <pre id="resposta-ollama">Aguardando seu prompt...</pre>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <p id="copyright">© 2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const enviarBtn = document.getElementById('enviar-btn');
+            const promptInput = document.getElementById('prompt-input');
+            const respostaOllama = document.getElementById('resposta-ollama');
+            const copyright = document.getElementById('copyright');
+
+
+            const ano = new Date().getFullYear();
+            if (copyright) copyright.textContent = `© ${ano} Hugo Souza Jamielniak. Todos os direitos reservados.`;
+
+
+            enviarBtn.addEventListener('click', function() {
+                const promptTexto = promptInput.value.trim();
+                if (!promptTexto) {
+                    alert("Por favor, digite algo no campo de prompt.");
+                    return;
+                }
+
+                enviarBtn.textContent = "Processando...";
+                enviarBtn.disabled = true;
+                respostaOllama.textContent = "Pensando...";
+
+                fetch('http://localhost:5000/api/processar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: promptTexto })
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error(`Erro na API: ${response.statusText}`);
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.response) {
+                        respostaOllama.textContent = data.response;
+                    } else if (data.erro) {
+                        respostaOllama.textContent = `Erro: ${data.erro}`;
+                    } else {
+                        respostaOllama.textContent = "Erro: formato inesperado da resposta.";
+                    }
+                })
+                .catch(error => {
+                    respostaOllama.textContent = `Erro ao conectar com o backend. Detalhes: ${error.message}`;
+                })
+                .finally(() => {
+                    enviarBtn.textContent = "Enviar para o Ollama";
+                    enviarBtn.disabled = false;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
