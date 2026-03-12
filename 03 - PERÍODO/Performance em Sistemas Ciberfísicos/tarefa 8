@@ -1,0 +1,11 @@
+inicio:
+mov eax, 9
+mov ebx, 2
+div ebx
+
+mov ecx, 0 
+cmp ecx, edx
+jz fim
+mov edi,1
+
+fim:
