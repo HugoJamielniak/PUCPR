@@ -1,0 +1,30 @@
+inicio:
+    mov eax, 4
+    mov ebx, 5
+    mov ecx, 0
+    mov edx, 0
+    mov esi, 0
+laco:
+    cmp eax, ebx
+    jz fim
+
+primeiro_caso:
+    cmp eax, ebx
+    jg calculo
+    jmp segundo_caso
+calculo:
+    sub eax, ebx
+    add edx, ebx
+    jmp laco
+
+segundo_caso:
+    cmp ebx, eax
+    jg calculo_dois
+    jmp laco
+calculo_dois:
+    sub ebx, eax
+    add esi, eax
+    jmp laco
+fim:
+    mov eax, 1
+    mov ebx, 0
