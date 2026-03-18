@@ -1,0 +1,16 @@
+inicio:
+mov eax, 4
+mov ebx, 5
+mov ecx, 0
+mov edx, 0
+
+laco:
+div ebx;
+mov eax, ebx
+mov ebx, edx
+cmp ebx, ecx
+jz fim
+jmp laco
+
+fim:
+mov edi, eax
