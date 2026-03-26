@@ -381,17 +381,12 @@ def calcularProximaInstrucao(idInstrucao):
     if idInstrucao == 0x31:
         registrador_cp += 3
 
-    if idInstrucao == 0x50:
-        pass
-
     if idInstrucao == 0x60:
         registrador_cp += 3
 
     if idInstrucao == 0x61:
         registrador_cp += 3
 
-    if idInstrucao == 0x79:
-        pass
 
 
 def dumpRegistradores():
