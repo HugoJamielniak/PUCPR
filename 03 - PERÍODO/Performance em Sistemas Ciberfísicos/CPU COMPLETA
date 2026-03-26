@@ -16,8 +16,8 @@ flag_zero = False
 # memoria = MemoriaCache('arquivos_memoria/todas_instrucoes.bin')
 
 
-memoria = MemoriaCache('arquivos_memoria/programa_simples.bin')
-# memoria = MemoriaCache('arquivos_memoria/fibonacci_10.bin')
+# memoria = MemoriaCache('arquivos_memoria/programa_simples.bin')
+memoria = MemoriaCache('arquivos_memoria/fibonacci_10.bin')
 
 def buscarEDecodificarInstrucao():
     global registrador_ax
@@ -91,7 +91,7 @@ def lerOperadoresExecutarInstrucao(idInstrucao):
 
     print('Implementar a lerOperadoresExecutarInstrucao')
 
-    # MOV REG BYTE
+    #MOV REG BYTE
     if idInstrucao == 0x40:
         operador1 = memoria.getValorMemoria(registrador_cp + 1)
         operador2 = memoria.getValorMemoria(registrador_cp + 2)
@@ -105,7 +105,7 @@ def lerOperadoresExecutarInstrucao(idInstrucao):
         elif operador1 == 0x05:
             registrador_dx = operador2
 
-    # ADD REG BYTE
+    #ADD REG BYTE
     if idInstrucao == 0x00:
         operador1 = memoria.getValorMemoria(registrador_cp + 1)
         operador2 = memoria.getValorMemoria(registrador_cp + 2)
@@ -119,7 +119,7 @@ def lerOperadoresExecutarInstrucao(idInstrucao):
         elif operador1 == 0x04:
             registrador_dx += operador2
 
-    # ADD REG REG
+    #ADD REG REG
     if idInstrucao == 0x01:
         operador1 = memoria.getValorMemoria(registrador_cp + 1)
         operador2 = memoria.getValorMemoria(registrador_cp + 2)
@@ -160,7 +160,7 @@ def lerOperadoresExecutarInstrucao(idInstrucao):
         elif operador1 == 0x05 and operador2 == 0x05:
             registrador_dx += registrador_dx
 
-    # INC REG
+    #INC REG
     if idInstrucao == 0x10:
         operador1 = memoria.getValorMemoria(registrador_cp + 1)
 
@@ -173,7 +173,7 @@ def lerOperadoresExecutarInstrucao(idInstrucao):
         elif operador1 == 0x04:
             registrador_dx += 1
 
-    # DEC REG
+    #DEC REG
     if idInstrucao == 0x20:
         operador1 = memoria.getValorMemoria(registrador_cp + 1)
 
@@ -186,7 +186,7 @@ def lerOperadoresExecutarInstrucao(idInstrucao):
         elif operador1 == 0x04:
             registrador_dx -= 1
 
-    # SUB REG BYTE
+    #SUB REG BYTE
     if idInstrucao == 0x30:
         operador1 = memoria.getValorMemoria(registrador_cp + 1)
         operador2 = memoria.getValorMemoria(registrador_cp + 2)
@@ -200,7 +200,7 @@ def lerOperadoresExecutarInstrucao(idInstrucao):
         elif operador1 == 0x04:
             registrador_dx -= operador2
 
-    # SUB REG REG
+    #SUB REG REG
     if idInstrucao == 0x31:
         operador1 = memoria.getValorMemoria(registrador_cp + 1)
         operador2 = memoria.getValorMemoria(registrador_cp + 2)
@@ -241,7 +241,7 @@ def lerOperadoresExecutarInstrucao(idInstrucao):
         elif operador1 == 0x05 and operador2 == 0x05:
             registrador_dx -= registrador_dx
 
-    # MOV REG REG
+    #MOV REG REG
     if idInstrucao == 0x41:
         operador1 = memoria.getValorMemoria(registrador_cp + 1)
         operador2 = memoria.getValorMemoria(registrador_cp + 2)
@@ -282,69 +282,85 @@ def lerOperadoresExecutarInstrucao(idInstrucao):
         elif operador1 == 0x05 and operador2 == 0x05:
             registrador_dx = registrador_dx
 
-    ##JMP BYTE
+    #JMP BYTE
     if idInstrucao == 0x50:
         operador1 = memoria.getValorMemoria(registrador_cp + 1)
         registrador_cp = operador1
 
-    ##JZ BYTE
+    #JZ BYTE
     if idInstrucao == 0x79:
         operador1 = memoria.getValorMemoria(registrador_cp + 1)
         if flag_zero:
             registrador_cp = operador1
-        else:
-            registrador_cp += 2
 
-    # CMP REG BYTE
-    if idInstrucao == 0x60:
+    #CMP REG BYTE
+    elif idInstrucao == 0x60:
         operador1 = memoria.getValorMemoria(registrador_cp + 1)
         operador2 = memoria.getValorMemoria(registrador_cp + 2)
 
-        if operador1 == 0x02 and operador2 == 0x02:
-            flag_zero = True
-        elif operador1 == 0x02 and operador2 == 0x03:
-            flag_zero = False
-        elif operador1 == 0x02 and operador2 == 0x04:
-            flag_zero = False
-        elif operador1 == 0x02 and operador2 == 0x05:
-            flag_zero = False
+        if operador1 == 0x02:
+            if registrador_ax == operador2:
+                flag_zero = True
 
-        if operador1 == 0x03 and operador2 == 0x02:
-            flag_zero = False
-        elif operador1 == 0x03 and operador2 == 0x03:
-            flag_zero = True
-        elif operador1 == 0x03 and operador2 == 0x04:
-            flag_zero = False
-        elif operador1 == 0x03 and operador2 == 0x05:
-            flag_zero = False
+        elif operador1 == 0x03:
+            if registrador_bx == operador2:
+                flag_zero = True
 
-        if operador1 == 0x04 and operador2 == 0x02:
-            flag_zero = False
-        elif operador1 == 0x04 and operador2 == 0x03:
-            flag_zero = False
-        elif operador1 == 0x04 and operador2 == 0x04:
-            flag_zero = True
-        elif operador1 == 0x04 and operador2 == 0x05:
-            flag_zero = False
+        elif operador1 == 0x04:
+            if registrador_cx == operador2:
+                flag_zero = True
 
-        if operador1 == 0x05 and operador2 == 0x02:
-            flag_zero = False
-        elif operador1 == 0x05 and operador2 == 0x03:
-            flag_zero = False
-        elif operador1 == 0x05 and operador2 == 0x04:
-            flag_zero = False
-        elif operador1 == 0x05 and operador2 == 0x05:
-            flag_zero = True
+        elif operador1 == 0x05:
+            if registrador_dx == operador2:
+                flag_zero = True
 
-    ##CMP REG REG
-    if idInstrucao == 0x61:
+
+    #CMP REG REG
+    elif idInstrucao == 0x61:
         operador1 = memoria.getValorMemoria(registrador_cp + 1)
         operador2 = memoria.getValorMemoria(registrador_cp + 2)
 
-        if operador1 == operador2:
-            flag_zero = True
-        else:
-            flag_zero = False
+        flag_zero = False
+
+        if operador1 == 0x02:
+            if operador2 == 0x02 and registrador_ax == registrador_ax:
+                flag_zero = True
+            elif operador2 == 0x03 and registrador_ax == registrador_bx:
+                flag_zero = True
+            elif operador2 == 0x04 and registrador_ax == registrador_cx:
+                flag_zero = True
+            elif operador2 == 0x05 and registrador_ax == registrador_dx:
+                flag_zero = True
+
+        elif operador1 == 0x03:
+            if operador2 == 0x02 and registrador_bx == registrador_ax:
+                flag_zero = True
+            elif operador2 == 0x03 and registrador_bx == registrador_bx:
+                flag_zero = True
+            elif operador2 == 0x04 and registrador_bx == registrador_cx:
+                flag_zero = True
+            elif operador2 == 0x05 and registrador_bx == registrador_dx:
+                flag_zero = True
+
+        elif operador1 == 0x04:
+            if operador2 == 0x02 and registrador_cx == registrador_ax:
+                flag_zero = True
+            elif operador2 == 0x03 and registrador_cx == registrador_bx:
+                flag_zero = True
+            elif operador2 == 0x04 and registrador_cx == registrador_cx:
+                flag_zero = True
+            elif operador2 == 0x05 and registrador_cx == registrador_dx:
+                flag_zero = True
+
+        elif operador1 == 0x05:
+            if operador2 == 0x02 and registrador_dx == registrador_ax:
+                flag_zero = True
+            elif operador2 == 0x03 and registrador_dx == registrador_bx:
+                flag_zero = True
+            elif operador2 == 0x04 and registrador_dx == registrador_cx:
+                flag_zero = True
+            elif operador2 == 0x05 and registrador_dx == registrador_dx:
+                flag_zero = True
 
 
 def calcularProximaInstrucao(idInstrucao):
@@ -360,32 +376,35 @@ def calcularProximaInstrucao(idInstrucao):
     if idInstrucao == 0x40:
         registrador_cp += 3
 
-    if idInstrucao == 0x41:
+    elif idInstrucao == 0x41:
         registrador_cp += 3
 
-    if idInstrucao == 0x00:
+    elif idInstrucao == 0x00:
         registrador_cp += 3
 
-    if idInstrucao == 0x01:
+    elif idInstrucao == 0x01:
         registrador_cp += 3
 
-    if idInstrucao == 0x10:
+    elif idInstrucao == 0x10:
         registrador_cp += 2
 
-    if idInstrucao == 0x20:
+    elif idInstrucao == 0x20:
         registrador_cp += 2
 
-    if idInstrucao == 0x30:
+    elif idInstrucao == 0x30:
         registrador_cp += 3
 
-    if idInstrucao == 0x31:
+    elif idInstrucao == 0x31:
         registrador_cp += 3
 
-    if idInstrucao == 0x60:
+    elif idInstrucao == 0x60:
         registrador_cp += 3
 
-    if idInstrucao == 0x61:
+    elif idInstrucao == 0x61:
         registrador_cp += 3
+
+    elif idInstrucao == 0x79:
+        registrador_cp += 2
 
 
 
