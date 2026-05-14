@@ -73,3 +73,4 @@ public class Main {
 
         System.out.println("Total de números entre 0.25 e 0.75: " + totalCriterio);
     }
+}
