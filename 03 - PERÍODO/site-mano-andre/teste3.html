@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Nova Triagem - MedXF</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:#f3f6fb;
+      color:#1e293b;
+    }
+
+    /* HEADER */
+
+    header{
+      background:#2563eb;
+      color:white;
+      padding:18px 30px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow:0 4px 15px rgba(0,0,0,.08);
+    }
+
+    #botao-voltar{
+      background:white;
+      width:45px;
+      height:45px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+      color:#2563eb;
+      font-size:20px;
+      font-weight:700;
+      transition:.3s;
+    }
+
+    #botao-voltar:hover{
+      transform:translateY(-2px);
+    }
+
+    header h1{
+      font-size:24px;
+      font-weight:700;
+    }
+
+    /* CONTAINER CENTRAL */
+
+    .container{
+      max-width:1100px;
+      margin:40px auto;
+      padding:0 30px;
+    }
+
+    /* TITULO */
+
+    .titulo{
+      margin-bottom:30px;
+    }
+
+    .titulo h2{
+      font-size:34px;
+      margin-bottom:10px;
+    }
+
+    .titulo p{
+      color:#64748b;
+      font-size:15px;
+    }
+
+    /* CHECKLIST */
+
+    .checklist{
+      display:flex;
+      flex-direction:column;
+      gap:22px;
+    }
+
+    .check-item{
+      background:white;
+      border-radius:24px;
+      padding:26px;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:25px;
+      box-shadow:0 4px 20px rgba(0,0,0,.05);
+      transition:.3s;
+      border:2px solid transparent;
+    }
+
+    .check-item:hover{
+      transform:translateY(-2px);
+      border-color:#2563eb20;
+    }
+
+    .info-sintoma{
+      flex:1;
+    }
+
+    .info-sintoma p{
+      font-size:18px;
+      font-weight:600;
+      margin-bottom:15px;
+    }
+
+    /* DETAILS */
+
+    .observacao summary{
+      cursor:pointer;
+      color:#2563eb;
+      font-size:14px;
+      font-weight:600;
+      user-select:none;
+    }
+
+    .observacao textarea{
+      width:100%;
+      min-height:120px;
+      border:none;
+      border-radius:16px;
+      padding:16px;
+      resize:none;
+      background:#f1f5f9;
+      margin-top:14px;
+      font-family:inherit;
+      transition:.3s;
+      font-size:14px;
+    }
+
+    .observacao textarea:focus{
+      outline:none;
+      background:white;
+      box-shadow:0 0 0 3px rgba(37,99,235,.15);
+    }
+
+    /* CHECKBOX */
+
+    .check-sintoma{
+      appearance:none;
+      min-width:30px;
+      height:30px;
+      border-radius:10px;
+      border:2px solid #cbd5e1;
+      cursor:pointer;
+      transition:.3s;
+      position:relative;
+      background:white;
+      margin-top:5px;
+    }
+
+    .check-sintoma:checked{
+      background:#2563eb;
+      border-color:#2563eb;
+    }
+
+    .check-sintoma:checked::after{
+      content:"✓";
+      color:white;
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      font-size:16px;
+      font-weight:700;
+    }
+
+    /* BOTAO */
+
+    .continuar{
+      display:flex;
+      justify-content:center;
+      margin-top:40px;
+      margin-bottom:50px;
+    }
+
+    #botao-continuar{
+      background:#2563eb;
+      color:white;
+      text-decoration:none;
+      padding:18px 40px;
+      border-radius:18px;
+      font-size:17px;
+      font-weight:700;
+      transition:.3s;
+      box-shadow:0 8px 20px rgba(37,99,235,.25);
+    }
+
+    #botao-continuar:hover{
+      background:#1d4ed8;
+      transform:translateY(-2px);
+    }
+
+    /* RESPONSIVO */
+
+    @media(max-width:768px){
+
+      .container{
+        padding:0 18px;
+      }
+
+      .check-item{
+        flex-direction:column;
+      }
+
+      header h1{
+        font-size:18px;
+      }
+
+      .titulo h2{
+        font-size:28px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<header>
+
+  <a href="#" id="botao-voltar">
+    ←
+  </a>
+
+  <h1>Menu Principal</h1>
+
+  <img src="https://dummyimage.com/100x40/ffffff/2563eb&text=MedXF" alt="logo">
+
+</header>
+
+<div class="container">
+
+  <div class="titulo">
+    <h2>Questionário Médico</h2>
+    <p>Selecione os sintomas identificados durante a avaliação clínica.</p>
+  </div>
+
+  <div class="checklist">
+
+    <!-- ITEM -->
+    <div class="check-item">
+      <div class="info-sintoma">
+        <p>Deficiência intelectual</p>
+
+        <details class="observacao">
+          <summary>Adicionar observações médicas</summary>
+          <textarea placeholder="Digite as observações do médico..."></textarea>
+        </details>
+      </div>
+
+      <input type="checkbox" class="check-sintoma">
+    </div>
+
+    <!-- ITEM -->
+    <div class="check-item">
+      <div class="info-sintoma">
+        <p>Face alongada / orelhas grandes</p>
+
+        <details class="observacao">
+          <summary>Adicionar observações médicas</summary>
+          <textarea placeholder="Digite as observações do médico..."></textarea>
+        </details>
+      </div>
+
+      <input type="checkbox" class="check-sintoma">
+    </div>
+
+    <!-- ITEM -->
+    <div class="check-item">
+      <div class="info-sintoma">
+        <p>Macroorquidismo</p>
+
+        <details class="observacao">
+          <summary>Adicionar observações médicas</summary>
+          <textarea placeholder="Digite as observações do médico..."></textarea>
+        </details>
+      </div>
+
+      <input type="checkbox" class="check-sintoma">
+    </div>
+
+    <!-- ITEM -->
+    <div class="check-item">
+      <div class="info-sintoma">
+        <p>Hipermobilidade articular</p>
+
+        <details class="observacao">
+          <summary>Adicionar observações médicas</summary>
+          <textarea placeholder="Digite as observações do médico..."></textarea>
+        </details>
+      </div>
+
+      <input type="checkbox" class="check-sintoma">
+    </div>
+
+    <!-- ITEM -->
+    <div class="check-item">
+      <div class="info-sintoma">
+        <p>Dificuldades de aprendizagem</p>
+
+        <details class="observacao">
+          <summary>Adicionar observações médicas</summary>
+          <textarea placeholder="Digite as observações do médico..."></textarea>
+        </details>
+      </div>
+
+      <input type="checkbox" class="check-sintoma">
+    </div>
+
+    <!-- ITEM -->
+    <div class="check-item">
+      <div class="info-sintoma">
+        <p>Déficit de atenção</p>
+
+        <details class="observacao">
+          <summary>Adicionar observações médicas</summary>
+          <textarea placeholder="Digite as observações do médico..."></textarea>
+        </details>
+      </div>
+
+      <input type="checkbox" class="check-sintoma">
+    </div>
+
+    <!-- ITEM -->
+    <div class="check-item">
+      <div class="info-sintoma">
+        <p>Movimentos repetitivos</p>
+
+        <details class="observacao">
+          <summary>Adicionar observações médicas</summary>
+          <textarea placeholder="Digite as observações do médico..."></textarea>
+        </details>
+      </div>
+
+      <input type="checkbox" class="check-sintoma">
+    </div>
+
+    <!-- ITEM -->
+    <div class="check-item">
+      <div class="info-sintoma">
+        <p>Atraso na fala</p>
+
+        <details class="observacao">
+          <summary>Adicionar observações médicas</summary>
+          <textarea placeholder="Digite as observações do médico..."></textarea>
+        </details>
+      </div>
+
+      <input type="checkbox" class="check-sintoma">
+    </div>
+
+    <!-- ITEM -->
+    <div class="check-item">
+      <div class="info-sintoma">
+        <p>Hiperatividade</p>
+
+        <details class="observacao">
+          <summary>Adicionar observações médicas</summary>
+          <textarea placeholder="Digite as observações do médico..."></textarea>
+        </details>
+      </div>
+
+      <input type="checkbox" class="check-sintoma">
+    </div>
+
+    <!-- ITEM -->
+    <div class="check-item">
+      <div class="info-sintoma">
+        <p>Evita contato visual</p>
+
+        <details class="observacao">
+          <summary>Adicionar observações médicas</summary>
+          <textarea placeholder="Digite as observações do médico..."></textarea>
+        </details>
+      </div>
+
+      <input type="checkbox" class="check-sintoma">
+    </div>
+
+    <!-- ITEM -->
+    <div class="check-item">
+      <div class="info-sintoma">
+        <p>Evita contato físico</p>
+
+        <details class="observacao">
+          <summary>Adicionar observações médicas</summary>
+          <textarea placeholder="Digite as observações do médico..."></textarea>
+        </details>
+      </div>
+
+      <input type="checkbox" class="check-sintoma">
+    </div>
+
+    <!-- ITEM -->
+    <div class="check-item">
+      <div class="info-sintoma">
+        <p>Agressividade</p>
+
+        <details class="observacao">
+          <summary>Adicionar observações médicas</summary>
+          <textarea placeholder="Digite as observações do médico..."></textarea>
+        </details>
+      </div>
+
+      <input type="checkbox" class="check-sintoma">
+    </div>
+
+  </div>
+
+  <div class="continuar">
+
+    <a href="#" id="botao-continuar">
+      Finalizar Triagem
+    </a>
+
+  </div>
+
+</div>
+
+<script>
+
+  const checks = document.querySelectorAll(".check-sintoma");
+
+  checks.forEach(check => {
+
+    check.addEventListener("change", () => {
+
+      const item = check.closest(".check-item");
+
+      if(check.checked){
+
+        item.style.borderColor = "#2563eb";
+        item.style.background = "#f8fbff";
+
+      }else{
+
+        item.style.borderColor = "transparent";
+        item.style.background = "white";
+
+      }
+
+    });
+
+  });
+
+</script>
+
+</body>
+</html>

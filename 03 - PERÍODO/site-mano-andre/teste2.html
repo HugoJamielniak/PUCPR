@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nova Triagem</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:#f3f6fb;
+  color:#1e293b;
+}
+
+/* TOPO */
+
+.topbar{
+  background:#2563eb;
+  color:white;
+  padding:18px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.logo{
+  font-size:22px;
+  font-weight:700;
+}
+
+/* CONTAINER */
+
+.container{
+  max-width:500px;
+  margin:30px auto;
+  padding:25px;
+}
+
+/* CARD */
+
+.form-card{
+  background:white;
+  border-radius:28px;
+  padding:30px;
+  box-shadow:0 8px 30px rgba(0,0,0,.05);
+}
+
+/* TITULO */
+
+.title{
+  margin-bottom:25px;
+}
+
+.title h1{
+  font-size:28px;
+  margin-bottom:6px;
+}
+
+.title p{
+  color:#64748b;
+  font-size:14px;
+}
+
+/* PROGRESSO */
+
+.progress{
+  width:100%;
+  height:10px;
+  background:#dbeafe;
+  border-radius:999px;
+  margin-bottom:30px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  width:35%;
+  height:100%;
+  background:#2563eb;
+}
+
+/* INPUTS */
+
+.form-group{
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  margin-bottom:8px;
+  font-size:14px;
+  font-weight:600;
+  color:#334155;
+}
+
+input{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:14px;
+  background:#f1f5f9;
+  font-size:15px;
+  transition:.3s;
+}
+
+input:focus{
+  outline:none;
+  background:white;
+  box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+/* GRID */
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+/* TOGGLE */
+
+.toggle-group{
+  margin-top:22px;
+}
+
+.toggle-title{
+  margin-bottom:12px;
+  font-size:14px;
+  font-weight:600;
+}
+
+.toggle-buttons{
+  display:flex;
+  gap:14px;
+}
+
+.toggle{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#e2e8f0;
+  cursor:pointer;
+  font-weight:600;
+  transition:.3s;
+}
+
+.toggle.active{
+  background:#2563eb;
+  color:white;
+  box-shadow:0 5px 15px rgba(37,99,235,.25);
+}
+
+/* BOTAO */
+
+.submit-btn{
+  width:100%;
+  margin-top:35px;
+  border:none;
+  padding:18px;
+  border-radius:18px;
+  background:#2563eb;
+  color:white;
+  font-size:17px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.3s;
+  box-shadow:0 8px 20px rgba(37,99,235,.25);
+}
+
+.submit-btn:hover{
+  transform:translateY(-2px);
+  background:#1d4ed8;
+}
+
+@media(max-width:600px){
+
+  .container{
+    padding:18px;
+  }
+
+  .form-card{
+    padding:24px;
+  }
+
+  .row{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="logo">MedFX</div>
+  <div>Nova Triagem</div>
+</div>
+
+<div class="container">
+
+  <div class="form-card">
+
+    <div class="title">
+      <h1>Dados do Paciente</h1>
+      <p>Preencha as informações iniciais da triagem</p>
+    </div>
+
+    <div class="progress">
+      <div class="progress-bar"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Nome Completo</label>
+      <input id="nome" type="text" placeholder="Digite o nome">
+    </div>
+
+    <div class="form-group">
+      <label>Nome do Responsável</label>
+      <input type="text" placeholder="Opcional">
+    </div>
+
+    <div class="row">
+
+      <div class="form-group">
+        <label>Data de Nascimento</label>
+        <input type="date">
+      </div>
+
+      <div class="form-group">
+        <label>Sexo</label>
+        <input type="text" placeholder="Masculino/Feminino">
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" placeholder="email@exemplo.com">
+    </div>
+
+    <div class="form-group">
+      <label>Telefone</label>
+      <input type="text" placeholder="(41) 99999-9999">
+    </div>
+
+    <!-- TOGGLE 1 -->
+
+    <div class="toggle-group">
+
+      <div class="toggle-title">
+        Histórico familiar de deficiência intelectual?
+      </div>
+
+      <div class="toggle-buttons">
+        <button class="toggle">Sim</button>
+        <button class="toggle">Não</button>
+      </div>
+
+    </div>
+
+    <!-- TOGGLE 2 -->
+
+    <div class="toggle-group">
+
+      <div class="toggle-title">
+        Histórico de X Frágil na família?
+      </div>
+
+      <div class="toggle-buttons">
+        <button class="toggle">Sim</button>
+        <button class="toggle">Não</button>
+      </div>
+
+    </div>
+
+    <!-- BOTAO -->
+
+    <button class="submit-btn" onclick="continuar()">
+      Continuar
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+/* BOTAO CONTINUAR */
+
+function continuar(){
+
+  let nome = document.getElementById("nome").value;
+
+  if(nome === ""){
+    alert("Preencha o nome do paciente!");
+    return;
+  }
+
+  alert("Triagem iniciada com sucesso!");
+
+  // redirecionamento
+  // window.location.href = "dashboard.html";
+}
+
+/* TOGGLE SIM / NAO */
+
+const grupos = document.querySelectorAll(".toggle-buttons");
+
+grupos.forEach(grupo => {
+
+  const botoes = grupo.querySelectorAll(".toggle");
+
+  botoes.forEach(botao => {
+
+    botao.addEventListener("click", () => {
+
+      botoes.forEach(b => {
+        b.classList.remove("active");
+      });
+
+      botao.classList.add("active");
+
+    });
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>

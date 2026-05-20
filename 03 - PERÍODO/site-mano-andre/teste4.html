@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>MedFX Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter', sans-serif;
+    background:#f4f7fb;
+    color:#1e293b;
+}
+
+/* ================= HEADER ================= */
+
+.topbar{
+    width:100%;
+    height:72px;
+    background:#1565D8;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 35px;
+    box-shadow:0 2px 15px rgba(0,0,0,0.08);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:700;
+    color:white;
+}
+
+.logo span{
+    color:#9fd0ff;
+}
+
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.notification{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.15);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.notification:hover{
+    background:rgba(255,255,255,0.25);
+}
+
+.user{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:white;
+    color:#1565D8;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+    width:92%;
+    max-width:1450px;
+    margin:40px auto;
+}
+
+/* ================= HEADER CONTENT ================= */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.header h1{
+    font-size:34px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.header p{
+    margin-top:8px;
+    color:#64748b;
+}
+
+.search-box{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.search-box input{
+    width:300px;
+    padding:15px 18px;
+    border:none;
+    border-radius:14px;
+    background:white;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+    outline:none;
+    font-size:14px;
+}
+
+.search-box button{
+    border:none;
+    background:#1565D8;
+    color:white;
+    padding:15px 24px;
+    border-radius:14px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.search-box button:hover{
+    background:#0f4fb5;
+}
+
+/* ================= CARDS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:24px;
+    margin-bottom:35px;
+}
+
+.card{
+    background:white;
+    border-radius:22px;
+    padding:28px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.05);
+    position:relative;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:5px;
+    background:#1565D8;
+}
+
+.card h3{
+    font-size:14px;
+    color:#64748b;
+    margin-bottom:14px;
+    font-weight:600;
+}
+
+.card .number{
+    font-size:38px;
+    font-weight:700;
+    color:#1565D8;
+}
+
+/* ================= TABLE ================= */
+
+.table-container{
+    background:white;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 6px 20px rgba(0,0,0,0.05);
+}
+
+.table-header{
+    padding:25px 30px;
+    border-bottom:1px solid #e2e8f0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.table-header h2{
+    font-size:22px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#eff6ff;
+}
+
+th{
+    text-align:left;
+    padding:20px;
+    font-size:14px;
+    color:#475569;
+    font-weight:600;
+}
+
+td{
+    padding:20px;
+    border-top:1px solid #e2e8f0;
+}
+
+tbody tr{
+    transition:.2s;
+}
+
+tbody tr:hover{
+    background:#f8fbff;
+}
+
+/* ================= PATIENT ================= */
+
+.patient{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.avatar{
+    width:52px;
+    height:52px;
+    border-radius:16px;
+    background:#dbeafe;
+    color:#1565D8;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.patient-info h4{
+    font-size:15px;
+    margin-bottom:4px;
+}
+
+.patient-info span{
+    color:#64748b;
+    font-size:13px;
+}
+
+/* ================= RISK ================= */
+
+.risk{
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.high{
+    background:#fee2e2;
+    color:#dc2626;
+}
+
+.medium{
+    background:#fef3c7;
+    color:#d97706;
+}
+
+.low{
+    background:#dcfce7;
+    color:#16a34a;
+}
+
+/* ================= STATUS ================= */
+
+.status{
+    font-size:13px;
+    font-weight:700;
+}
+
+.done{
+    color:#16a34a;
+}
+
+.pending{
+    color:#d97706;
+}
+
+/* ================= BUTTON ================= */
+
+.btn{
+    border:none;
+    background:#1565D8;
+    color:white;
+    padding:11px 18px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#0f4fb5;
+}
+
+/* ================= RESPONSIVO ================= */
+
+@media(max-width:900px){
+
+    body{
+        padding:0;
+    }
+
+    .container{
+        width:95%;
+    }
+
+    .table-container{
+        overflow-x:auto;
+    }
+
+    table{
+        min-width:950px;
+    }
+
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= TOPBAR ================= -->
+
+<header class="topbar">
+
+    <div class="logo">
+        Med<span>FX</span>
+    </div>
+
+    <div class="top-right">
+
+        <div class="notification">
+            🔔
+        </div>
+
+        <div class="user">
+            H
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ================= CONTAINER ================= -->
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div>
+            <h1>Avaliações Realizadas</h1>
+            <p>Painel de monitoramento médico e avaliações clínicas.</p>
+        </div>
+
+        <div class="search-box">
+            <input type="text" placeholder="Buscar paciente...">
+            <button>Pesquisar</button>
+        </div>
+
+    </div>
+
+    <!-- CARDS -->
+
+    <div class="stats">
+
+        <div class="card">
+            <h3>Total de avaliações</h3>
+            <div class="number">128</div>
+        </div>
+
+        <div class="card">
+            <h3>Casos críticos</h3>
+            <div class="number">12</div>
+        </div>
+
+        <div class="card">
+            <h3>Em análise</h3>
+            <div class="number">8</div>
+        </div>
+
+        <div class="card">
+            <h3>Concluídas hoje</h3>
+            <div class="number">24</div>
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+
+    <div class="table-container">
+
+        <div class="table-header">
+            <h2>Pacientes Recentes</h2>
+        </div>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Paciente</th>
+                    <th>Idade</th>
+                    <th>Sintomas</th>
+                    <th>Risco</th>
+                    <th>Data</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        <div class="patient">
+
+                            <div class="avatar">JS</div>
+
+                            <div class="patient-info">
+                                <h4>João Silva</h4>
+                                <span>joao@email.com</span>
+                            </div>
+
+                        </div>
+                    </td>
+
+                    <td>54 anos</td>
+
+                    <td>Febre, falta de ar</td>
+
+                    <td>
+                        <span class="risk high">Alto</span>
+                    </td>
+
+                    <td>20/05/2026</td>
+
+                    <td>
+                        <span class="status done">Concluído</span>
+                    </td>
+
+                    <td>
+                        <button class="btn">Ver detalhes</button>
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <div class="patient">
+
+                            <div class="avatar">MC</div>
+
+                            <div class="patient-info">
+                                <h4>Maria Costa</h4>
+                                <span>maria@email.com</span>
+                            </div>
+
+                        </div>
+                    </td>
+
+                    <td>29 anos</td>
+
+                    <td>Dor abdominal</td>
+
+                    <td>
+                        <span class="risk medium">Médio</span>
+                    </td>
+
+                    <td>20/05/2026</td>
+
+                    <td>
+                        <span class="status pending">Em análise</span>
+                    </td>
+
+                    <td>
+                        <button class="btn">Ver detalhes</button>
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        <div class="patient">
+
+                            <div class="avatar">CA</div>
+
+                            <div class="patient-info">
+                                <h4>Carlos Almeida</h4>
+                                <span>carlos@email.com</span>
+                            </div>
+
+                        </div>
+                    </td>
+
+                    <td>41 anos</td>
+
+                    <td>Tosse persistente</td>
+
+                    <td>
+                        <span class="risk low">Baixo</span>
+                    </td>
+
+                    <td>19/05/2026</td>
+
+                    <td>
+                        <span class="status done">Concluído</span>
+                    </td>
+
+                    <td>
+                        <button class="btn">Ver detalhes</button>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
