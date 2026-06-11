@@ -1,0 +1,52 @@
+import java.util.Random;
+import java.util.concurrent.Semaphore;
+
+class Usuario extends Thread {
+
+    private final int id;
+    private final Semaphore[] livros;
+    private final Random random = new Random();
+
+    public Usuario(int id, Semaphore[] livros) {
+        this.id = id;
+        this.livros = livros;
+    }
+    
+    public void run() {
+        while (true) {
+            try {
+                int livroEscolhido = random.nextInt(10);
+                if (!livros[livroEscolhido].tryAcquire()) {
+                    System.out.println("Usuario " + id + " esperando livro " + livroEscolhido + " ficar disponível");
+                    livros[livroEscolhido].acquire();
+                }
+                try {
+                    System.out.println("Usuario " + id + " emprestou o livro " + livroEscolhido);
+                    Thread.sleep(1000 + random.nextInt(1000));
+
+                } finally {
+                    livros[livroEscolhido].release();
+                    System.out.println("Usuario " + id + " devolveu o livro " + livroEscolhido);
+                }
+                Thread.sleep(1000 + random.nextInt(1000));
+            } catch (InterruptedException e) {
+                return;
+            }
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Semaphore[] livro = new Semaphore[10];
+        for (int i = 0; i < 10; i++) {
+            livro[i] = new Semaphore(1);
+        }
+        Usuario usuario1 = new Usuario(1, livro);
+        Usuario usuario2 = new Usuario(2, livro);
+        Usuario usuario3 = new Usuario(3, livro);
+        usuario1.start();
+        usuario2.start();
+        usuario3.start();
+    }
+}
